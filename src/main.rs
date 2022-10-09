@@ -6,6 +6,11 @@ fn main() {
     println!("Date: {}", date());
     println!("Time: {}", time());
     println!("Hour: {}", hour());
+    println!("Minute: {}", minute());
+    println!("Second: {}", second());
+
+    stop_watch(5);
+    cronometer();
 }
 
 fn date() -> String {
@@ -26,11 +31,38 @@ fn hour() -> u8 {
     }
 }
 
-fn cronometer(stop_time: u32) {
+fn minute() -> u8 {
+    let minute = time()[3..5].to_string();
+    match minute.parse::<u8>() {
+        Ok(minute) => minute,
+        Err(_) => 0,
+    }
+}
+
+fn second() -> u8 {
+    let second = time()[6..8].to_string();
+    match second.parse::<u8>() {
+        Ok(second) => second,
+        Err(_) => 0,
+    }
+}
+
+fn stop_watch(stop_time: u32) {
     let one_sec = time::Duration::from_secs(1);
 
     for i in 0..stop_time {
         println!("{}", i);
         thread::sleep(one_sec);
+    }
+}
+
+fn cronometer() {
+    let one_sec = time::Duration::from_secs(1);
+    let mut i = 0;
+
+    loop {
+        println!("{}", i);
+        thread::sleep(one_sec);
+        i += 1;
     }
 }
